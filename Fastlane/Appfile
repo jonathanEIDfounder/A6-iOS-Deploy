@@ -1,0 +1,7 @@
+# A6 App Configuration
+# LINEAGE: Jonathan Sherman
+
+app_identifier("com.sovereign.a6")
+apple_id(ENV["APPLE_ID"])
+itc_team_id(ENV["ITC_TEAM_ID"])
+team_id(ENV["TEAM_ID"])
