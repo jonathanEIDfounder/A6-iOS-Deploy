@@ -1,0 +1,61 @@
+# A6 - Automated iOS Deployment
+# Q++RS Ultimate Nexus Module
+# LINEAGE: Jonathan Sherman
+
+default_platform(:ios)
+
+platform :ios do
+  desc "Build A6 for iPhone XR"
+  lane :build do
+    gym(
+      scheme: "A6",
+      project: "A6.xcodeproj",
+      destination: "generic/platform=iOS",
+      output_directory: "./build",
+      output_name: "A6.ipa",
+      clean: true,
+      configuration: "Release"
+    )
+  end
+
+  desc "Deploy to TestFlight"
+  lane :beta do
+    build
+    upload_to_testflight(
+      skip_waiting_for_build_processing: true
+    )
+  end
+
+  desc "Deploy to App Store"
+  lane :release do
+    build
+    deliver(
+      submit_for_review: true,
+      automatic_release: true,
+      force: true,
+      skip_screenshots: true,
+      skip_metadata: false
+    )
+  end
+
+  desc "Generate screenshots for all devices"
+  lane :screenshots do
+    capture_screenshots(
+      devices: ["iPhone XR", "iPhone 15 Pro", "iPad Air"]
+    )
+  end
+
+  desc "Increment build number"
+  lane :bump do
+    increment_build_number(
+      build_number: Time.now.strftime("%Y%m%d%H%M")
+    )
+  end
+
+  desc "Full automated release"
+  lane :auto_release do
+    bump
+    screenshots
+    release
+  end
+end
