@@ -1,0 +1,7 @@
+app_identifier("com.sovereign.a6")
+apple_id(ENV["APPLE_ID"])
+team_id(ENV["APPLE_TEAM_ID"])
+
+for_platform :ios do
+  app_identifier("com.sovereign.a6")
+end
