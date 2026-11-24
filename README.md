@@ -50,9 +50,4 @@ ios/
 open ios/A6.xcodeproj
 
 # Build for iPhone XR
-xcodebuild -project A6.xcodeproj -scheme A6 -destination 'platform=iOS Simulator,name=iPhone XR' build
-```
-
-### Production Halt
-
-The app respects the production halt status. Non-owner users see maintenance screen.
+xcodebuild -project A6.xcodeproj -scheme A6 -destination 'platform=iOS name=iPhone XR'        Non-owner users see maintenance screen.
